@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qulb - Your Mental Wellness Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #898AC4;
+            --primary-light: #A2AADB;
+            --primary-dark: #0c254a;
+            --secondary: #64ffda;
+            --accent: #4a9eff;
+            --text: #333333;
+            --text-light: #666666;
+            --light: #f8f9fa;
+            --white: #FFFFFF;
+            --shadow: rgba(10, 25, 47, 0.15);
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 20px;
+            }
+        }
+        
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 800px;
+                height: 90vh;
+                max-height: 900px;
+            }
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 1.8rem 1.5rem 1.2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tagline {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            margin-top: 1rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .user-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .user-email {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        
+        .main-content {
+            padding: 1.5rem;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                max-height: calc(90vh - 200px);
+                padding: 2rem;
+            }
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .active-section {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--light);
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        
+        .mood-form {
+            display: grid;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            #journal .mood-form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                align-items: start;
+            }
+            
+            #journal .mood-form textarea {
+                grid-column: 1;
+                min-height: 200px;
+            }
+            
+            #journal .mood-selector {
+                grid-column: 2;
+            }
+            
+            #journal .btn-primary {
+                grid-column: 1 / -1;
+            }
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            resize: vertical;
+            min-height: 140px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--shadow);
+        }
+        
+        .mood-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .mood-selector {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .mood-option {
+                padding: 16px 8px;
+                font-size: 1rem;
+            }
+        }
+        
+        .mood-option {
+            padding: 12px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            background: var(--light);
+            font-size: 0.9rem;
+        }
+        
+        .mood-option:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .mood-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--shadow);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        .analysis-result {
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .crisis-alert {
+            background: #FFE6E6;
+            color: #D32F2F;
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            display: none;
+            border-left: 4px solid #D32F2F;
+        }
+        
+        .history-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .history-item {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            background: var(--light);
+        }
+        
+        .history-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .history-mood {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .history-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        
+        .history-text {
+            flex-grow: 1;
+            margin: 0 15px;
+            font-size: 0.95rem;
+        }
+        
+        .sentiment-bar {
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .sentiment-fill {
+            height: 100%;
+            transition: width 0.5s;
+        }
+        
+        /* Chatbot Styles */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 380px;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            background: var(--light);
+        }
+
+        @media (min-width: 768px) {
+            .chat-container {
+                height: 500px;
+            }
+        }
+        
+        .chat-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background: var(--primary-light);
+            color: var(--white);
+            border-bottom-right-radius: 6px;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background: var(--white);
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 6px;
+            color: var(--text);
+        }
+        
+        .chat-input-container {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
+            background: var(--white);
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            outline: none;
+            font-size: 16px;
+            background: var(--light);
+        }
+        
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+        
+        .send-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .send-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: var(--white);
+            padding: 12px 16px;
+            border-radius: 18px;
+            border-bottom-left-radius: 6px;
+            font-style: italic;
+            color: var(--text-light);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .quick-reply {
+            background: var(--white);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-reply:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .gemini-insights {
+            background: linear-gradient(135deg, var(--light), #f0f5ff);
+            padding: 1.2rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Login Styles */
+        .login-container {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .login-form {
+            max-width: 100%;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.2rem;
+        }
+        
+        .form-group {
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border 0.3s;
+            background: var(--light);
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--shadow);
+        }
+        
+        /* Updated Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: var(--light);
+            border-radius: 16px;
+            padding: 6px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-wrap: nowrap;
+            min-height: 60px;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            flex: 0 0 auto;
+            text-align: center;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            min-width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+        }
+
+        .nav-tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 2px 8px var(--shadow);
+            transform: translateY(-1px);
+        }
+
+        .nav-tab i {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+
+        .nav-tab .tab-text {
+            font-size: 0.75rem;
+            line-height: 1.2;
+        }
+
+        /* Enhanced responsive design */
+        @media (max-width: 480px) {
+            .nav-tabs {
+                padding: 4px;
+                gap: 4px;
+            }
+            
+            .nav-tab {
+                padding: 10px 4px;
+                min-width: 60px;
+                font-size: 0.8rem;
+            }
+            
+            .nav-tab i {
+                font-size: 0.9rem;
+            }
+            
+            .nav-tab .tab-text {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .nav-tab {
+                padding: 14px 10px;
+                min-width: 90px;
+                font-size: 0.9rem;
+            }
+            
+            .nav-tab i {
+                font-size: 1.1rem;
+            }
+            
+            .nav-tab .tab-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Add hover effects for desktop */
+        @media (hover: hover) {
+            .nav-tab:hover:not(.active) {
+                background: rgba(10, 25, 47, 0.05);
+                color: var(--primary-light);
+                transform: translateY(-1px);
+            }
+        }
+        
+        .welcome-message {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--light), #f0f5ff);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+        }
+        
+        .stat-card {
+            background: var(--white);
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.2rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Connection Status */
+        .connection-status {
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .status-connected {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #4caf50;
+        }
+        
+        .status-error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #f44336;
+        }
+        
+        .api-test-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Peer Support Styles */
+        .support-groups {
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .support-groups {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+        
+        .group-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s;
+        }
+        
+        .group-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .group-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .group-members {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .group-description {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .group-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .group-tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .group-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Professionals Styles */
+        .professionals-list {
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .professionals-list {
+                display: grid;
+                gap: 1rem;
+            }
+        }
+        
+        .professional-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s;
+        }
+        
+        .professional-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .professional-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .professional-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .professional-info {
+            flex: 1;
+        }
+        
+        .professional-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .professional-title {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        
+        .professional-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: var(--warning);
+        }
+        
+        .professional-specialties {
+            margin-bottom: 1rem;
+        }
+        
+        .specialty-tag {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .professional-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1.2rem;
+            }
+            
+            .mood-option {
+                padding: 10px 6px;
+                font-size: 0.85rem;
+            }
+            
+            .chat-container {
+                height: 350px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .professional-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .professional-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Login Screen -->
+        <div id="login-screen" class="login-container">
+            <header>
+                <div class="logo">qulb</div>
+                <div class="tagline">Your Mental Wellness Companion</div>
+            </header>
+            
+            <div class="login-form">
+                <h2>Welcome to Qulb</h2>
+                <p>Sign in to continue your mental wellness journey</p>
+                
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" placeholder="Enter your username or email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                
+                <button id="login-btn" class="btn btn-primary btn-block">Sign In</button>
+                
+                <p style="margin-top: 1rem;">Don't have an account? <a href="#" id="show-register" style="color: var(--primary); text-decoration: none;">Sign up here</a></p>
+            </div>
+            
+            <div id="register-form" style="display: none;">
+                <h2>Create Your Qulb Account</h2>
+                
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" placeholder="Choose a username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" placeholder="Create a password">
+                </div>
+                
+                <button id="register-btn" class="btn btn-primary btn-block">Create Account</button>
+                
+                <p style="margin-top: 1rem;">Already have an account? <a href="#" id="show-login" style="color: var(--primary); text-decoration: none;">Sign in here</a></p>
+            </div>
+        </div>
+        
+        <!-- Main App (hidden until login) -->
+        <div id="main-app" style="display: none;">
+            <header>
+                <div class="logo">qulb</div>
+                <div class="tagline">Your Mental Wellness Companion</div>
+                
+                <div class="user-info">
+                    <div class="user-details">
+                        <div class="avatar" id="user-avatar">U</div>
+                        <div class="user-text">
+                            <div class="user-name" id="user-name">User</div>
+                            <div class="user-email" id="user-email">user@example.com</div>
+                        </div>
+                    </div>
+                    <button class="logout-btn" id="logout-btn">Logout</button>
+                </div>
+            </header>
+            
+            <div class="main-content">
+                <!-- Connection Status -->
+                <div id="connection-status" class="connection-status status-error">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <span id="status-message">Gemini AI: Browser restrictions detected. Using fallback responses.</span>
+                    <button class="api-test-btn" id="test-api-btn">Test</button>
+                </div>
+                
+                <!-- Updated Navigation Tabs -->
+                <div class="nav-tabs">
+                    <div class="nav-tab active" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span class="tab-text">Dashboard</span>
+                    </div>
+                    <div class="nav-tab" data-section="journal">
+                        <i class="fas fa-book"></i>
+                        <span class="tab-text">Journal</span>
+                    </div>
+                    <div class="nav-tab" data-section="support">
+                        <i class="fas fa-users"></i>
+                        <span class="tab-text">Support</span>
+                    </div>
+                    <div class="nav-tab" data-section="professionals">
+                        <i class="fas fa-user-md"></i>
+                        <span class="tab-text">Professionals</span>
+                    </div>
+                    <div class="nav-tab" data-section="history">
+                        <i class="fas fa-history"></i>
+                        <span class="tab-text">History</span>
+                    </div>
+                    <div class="nav-tab" data-section="chatbot">
+                        <i class="fas fa-robot"></i>
+                        <span class="tab-text">AI Support</span>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active-section">
+                    <div class="welcome-message">
+                        <h2>Hello, <span id="greeting-name">User</span>! 👋</h2>
+                        <p>How are you feeling today? Take a moment to check in with yourself.</p>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-value" id="entries-count">0</div>
+                            <div class="stat-label">Journal Entries</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="avg-mood">-</div>
+                            <div class="stat-label">Average Mood</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="current-streak">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="ai-chats">0</div>
+                            <div class="stat-label">AI Conversations</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Recent Entries</h3>
+                    <div id="recent-entries">
+                        <p>No recent entries. Start by writing your first journal entry!</p>
+                    </div>
+                </section>
+                
+                <!-- Journal Section -->
+                <section id="journal" class="section">
+                    <h2>How are you feeling today?</h2>
+                    <div class="mood-form">
+                        <textarea id="journal-entry" placeholder="Write about your day, your feelings, or anything on your mind..."></textarea>
+                        
+                        <div class="mood-selector">
+                            <div class="mood-option" data-mood="happy">
+                                <span>😊</span> Happy
+                            </div>
+                            <div class="mood-option" data-mood="sad">
+                                <span>😢</span> Sad
+                            </div>
+                            <div class="mood-option" data-mood="angry">
+                                <span>😠</span> Angry
+                            </div>
+                            <div class="mood-option" data-mood="anxious">
+                                <span>😰</span> Anxious
+                            </div>
+                            <div class="mood-option" data-mood="calm">
+                                <span>😌</span> Calm
+                            </div>
+                            <div class="mood-option" data-mood="tired">
+                                <span>😴</span> Tired
+                            </div>
+                        </div>
+                        
+                        <button id="save-entry" class="btn btn-primary">Save Entry</button>
+                    </div>
+                    
+                    <div class="analysis-result" id="journal-analysis">
+                        <h3>Quick Analysis</h3>
+                        <p>Write something to see your emotion analysis.</p>
+                        <div class="sentiment-bar">
+                            <div class="sentiment-fill" id="sentiment-fill" style="width: 0%; background-color: #ddd;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gemini-insights" id="gemini-insights" style="display: none;">
+                        <h3>🤖 AI Insights</h3>
+                        <div id="ai-insights-content"></div>
+                    </div>
+                    
+                    <div class="crisis-alert" id="crisis-alert">
+                        <h3>⚠️ Crisis Detected</h3>
+                        <p>Our system detected concerning content in your entry. If you're in crisis, please reach out for help:</p>
+                        <ul>
+                            <li>National Suicide Prevention Lifeline: 1-800-273-8255</li>
+                            <li>Crisis Text Line: Text HOME to 741741</li>
+                            <li>Emergency Services: 911</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Peer Support Section -->
+                <section id="support" class="section">
+                    <h2>Peer Support Groups</h2>
+                    <p>Connect with others who understand what you're going through.</p>
+                    
+                    <div class="support-groups">
+                        <div class="group-card">
+                            <div class="group-header">
+                                <div class="group-name">Anxiety Support</div>
+                                <div class="group-members">
+                                    <i class="fas fa-users"></i> 243 members
+                                </div>
+                            </div>
+                            <div class="group-description">
+                                A safe space for individuals dealing with anxiety to share experiences, coping strategies, and support each other.
+                            </div>
+                            <div class="group-tags">
+                                <span class="group-tag">Anxiety</span>
+                                <span class="group-tag">Coping</span>
+                                <span class="group-tag">Mindfulness</span>
+                            </div>
+                            <div class="group-actions">
+                                <button class="btn btn-primary">Join Group</button>
+                                <button class="btn btn-outline">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="group-card">
+                            <div class="group-header">
+                                <div class="group-name">Depression Warriors</div>
+                                <div class="group-members">
+                                    <i class="fas fa-users"></i> 187 members
+                                </div>
+                            </div>
+                            <div class="group-description">
+                                A community for those battling depression to find hope, share stories, and support each other's recovery journey.
+                            </div>
+                            <div class="group-tags">
+                                <span class="group-tag">Depression</span>
+                                <span class="group-tag">Recovery</span>
+                                <span class="group-tag">Hope</span>
+                            </div>
+                            <div class="group-actions">
+                                <button class="btn btn-primary">Join Group</button>
+                                <button class="btn btn-outline">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="group-card">
+                            <div class="group-header">
+                                <div class="group-name">Mindfulness & Meditation</div>
+                                <div class="group-members">
+                                    <i class="fas fa-users"></i> 156 members
+                                </div>
+                            </div>
+                            <div class="group-description">
+                                Practice mindfulness and meditation techniques together. Share tips and experiences for mental wellness.
+                            </div>
+                            <div class="group-tags">
+                                <span class="group-tag">Meditation</span>
+                                <span class="group-tag">Mindfulness</span>
+                                <span class="group-tag">Peace</span>
+                            </div>
+                            <div class="group-actions">
+                                <button class="btn btn-primary">Join Group</button>
+                                <button class="btn btn-outline">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="group-card">
+                            <div class="group-header">
+                                <div class="group-name">Stress Management</div>
+                                <div class="group-members">
+                                    <i class="fas fa-users"></i> 198 members
+                                </div>
+                            </div>
+                            <div class="group-description">
+                                Learn and share effective stress management techniques. Support each other through stressful times.
+                            </div>
+                            <div class="group-tags">
+                                <span class="group-tag">Stress</span>
+                                <span class="group-tag">Coping</span>
+                                <span class="group-tag">Balance</span>
+                            </div>
+                            <div class="group-actions">
+                                <button class="btn btn-primary">Join Group</button>
+                                <button class="btn btn-outline">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Professionals Section -->
+                <section id="professionals" class="section">
+                    <h2>Professional Support</h2>
+                    <p>Connect with licensed mental health professionals for personalized support.</p>
+                    
+                    <div class="professionals-list">
+                        <div class="professional-card">
+                            <div class="professional-header">
+                                <div class="professional-avatar">DR</div>
+                                <div class="professional-info">
+                                    <div class="professional-name">Dr. Sarah Johnson</div>
+                                    <div class="professional-title">Licensed Clinical Psychologist</div>
+                                    <div class="professional-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span>4.7 (128 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="professional-specialties">
+                                <span class="specialty-tag">Anxiety</span>
+                                <span class="specialty-tag">Depression</span>
+                                <span class="specialty-tag">Trauma</span>
+                                <span class="specialty-tag">CBT</span>
+                            </div>
+                            <p>Specializes in cognitive behavioral therapy with 12 years of experience helping clients manage anxiety and depression.</p>
+                            <div class="professional-actions">
+                                <button class="btn btn-primary">Book Session</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                        
+                        <div class="professional-card">
+                            <div class="professional-header">
+                                <div class="professional-avatar">MJ</div>
+                                <div class="professional-info">
+                                    <div class="professional-name">Michael Johnson, LCSW</div>
+                                    <div class="professional-title">Licensed Clinical Social Worker</div>
+                                    <div class="professional-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span>5.0 (94 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="professional-specialties">
+                                <span class="specialty-tag">Relationships</span>
+                                <span class="specialty-tag">Grief</span>
+                                <span class="specialty-tag">Life Transitions</span>
+                                <span class="specialty-tag">Mindfulness</span>
+                            </div>
+                            <p>Focuses on helping clients navigate life transitions, relationship issues, and grief with compassion and practical strategies.</p>
+                            <div class="professional-actions">
+                                <button class="btn btn-primary">Book Session</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                        
+                        <div class="professional-card">
+                            <div class="professional-header">
+                                <div class="professional-avatar">AR</div>
+                                <div class="professional-info">
+                                    <div class="professional-name">Dr. Amanda Rodriguez</div>
+                                    <div class="professional-title">Psychiatrist</div>
+                                    <div class="professional-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span>4.9 (203 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="professional-specialties">
+                                <span class="specialty-tag">Medication Management</span>
+                                <span class="specialty-tag">Mood Disorders</span>
+                                <span class="specialty-tag">ADHD</span>
+                                <span class="specialty-tag">Anxiety Disorders</span>
+                            </div>
+                            <p>Board-certified psychiatrist specializing in medication management for mood disorders, anxiety, and ADHD.</p>
+                            <div class="professional-actions">
+                                <button class="btn btn-primary">Book Session</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                        
+                        <div class="professional-card">
+                            <div class="professional-header">
+                                <div class="professional-avatar">TW</div>
+                                <div class="professional-info">
+                                    <div class="professional-name">Tara Williams, LMFT</div>
+                                    <div class="professional-title">Licensed Marriage & Family Therapist</div>
+                                    <div class="professional-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span>4.6 (167 reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="professional-specialties">
+                                <span class="specialty-tag">Family Therapy</span>
+                                <span class="specialty-tag">Couples Counseling</span>
+                                <span class="specialty-tag">Communication</span>
+                                <span class="specialty-tag">Attachment</span>
+                            </div>
+                            <p>Specializes in family systems and attachment-based approaches to help individuals, couples, and families improve relationships.</p>
+                            <div class="professional-actions">
+                                <button class="btn btn-primary">Book Session</button>
+                                <button class="btn btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- History Section -->
+                <section id="history" class="section">
+                    <h2>Your Emotional History</h2>
+                    <p>Review your past mood entries and emotional patterns. Click on any entry to discuss it with AI.</p>
+                    
+                    <div id="history-container">
+                        <ul class="history-list" id="history-list">
+                            <!-- History items will be dynamically added here -->
+                        </ul>
+                    </div>
+                    
+                    <div id="no-entries" style="text-align: center; padding: 20px;">
+                        <p>No journal entries yet. Start by adding your first entry in the Journal section.</p>
+                    </div>
+                </section>
+                
+                <!-- Chatbot Section -->
+                <section id="chatbot" class="section">
+                    <h2>AI Emotional Support</h2>
+                    <p>Talk to our AI assistant for emotional support, insights, and guidance based on your journal entries.</p>
+                    
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <h3>Qulb Assistant</h3>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                Hello! I'm your Qulb Assistant. I'm here to listen, provide emotional support, and help you gain insights from your journal entries. How are you feeling today?
+                                <div class="quick-replies">
+                                    <div class="quick-reply" data-reply="I'm feeling stressed">I'm feeling stressed</div>
+                                    <div class="quick-reply" data-reply="Can you analyze my recent journal entries?">Analyze my journals</div>
+                                    <div class="quick-reply" data-reply="I need coping strategies">Coping strategies</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="typing-indicator" id="typing-indicator">
+                            Qulb Assistant is thinking...
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" id="chat-input" placeholder="Type your message here...">
+                            <button class="send-btn" id="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <footer>
+                <p>Qulb &copy; 2023 | Your Mental Wellness Companion</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration - UPDATED WITH WORKING KEY AND MODEL
+        const GEMINI_API_KEY = "AIzaSyBexG7-m79gBWvufnh5V6sttWnDWOxe3bo";
+        const GEMINI_MODEL = "gemini-2.5-flash-preview-05-20";
+        
+        // DOM Elements
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const loginForm = document.querySelector('.login-form');
+        const registerForm = document.getElementById('register-form');
+        const connectionStatus = document.getElementById('connection-status');
+        const statusMessage = document.getElementById('status-message');
+        const testApiBtn = document.getElementById('test-api-btn');
+        
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+        
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const saveEntryBtn = document.getElementById('save-entry');
+        const journalEntry = document.getElementById('journal-entry');
+        const journalAnalysis = document.getElementById('journal-analysis');
+        const crisisAlert = document.getElementById('crisis-alert');
+        const historyList = document.getElementById('history-list');
+        const noEntries = document.getElementById('no-entries');
+        const geminiInsights = document.getElementById('gemini-insights');
+        const aiInsightsContent = document.getElementById('ai-insights-content');
+        
+        // Chatbot Elements
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+        
+        // Dashboard Elements
+        const greetingName = document.getElementById('greeting-name');
+        const entriesCount = document.getElementById('entries-count');
+        const avgMood = document.getElementById('avg-mood');
+        const currentStreak = document.getElementById('current-streak');
+        const aiChats = document.getElementById('ai-chats');
+        const recentEntries = document.getElementById('recent-entries');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        
+        // App State
+        let selectedMood = '';
+        let currentUser = null;
+        let journalEntries = [];
+        let chatHistory = [];
+        let isGeminiConnected = false;
+        
+        // Initialize the app
+        function init() {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showMainApp();
+            }
+            
+            // Set up login/register forms
+            loginBtn.addEventListener('click', handleLogin);
+            registerBtn.addEventListener('click', handleRegister);
+            showRegister.addEventListener('click', () => {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            });
+            showLogin.addEventListener('click', () => {
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            });
+            
+            // Set up logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Set up API test button
+            testApiBtn.addEventListener('click', testGeminiConnection);
+            
+            // Set up navigation
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetSection = tab.getAttribute('data-section');
+                    
+                    // Update active tab
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show target section
+                    sections.forEach(section => {
+                        section.classList.remove('active-section');
+                        if (section.id === targetSection) {
+                            section.classList.add('active-section');
+                            
+                            // Section-specific setup
+                            if (targetSection === 'history' || targetSection === 'dashboard') {
+                                displayHistory();
+                                updateDashboard();
+                            }
+                            
+                            if (targetSection === 'chatbot') {
+                                loadChatHistory();
+                                setTimeout(() => {
+                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                }, 100);
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Set up mood selection
+            moodOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    moodOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedMood = option.getAttribute('data-mood');
+                });
+            });
+            
+            // Set up journal entry analysis
+            journalEntry.addEventListener('input', analyzeJournalEntry);
+            
+            // Set up save entry button
+            saveEntryBtn.addEventListener('click', saveJournalEntry);
+            
+            // Set up chatbot
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Set up quick replies
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('quick-reply')) {
+                    const reply = e.target.getAttribute('data-reply');
+                    chatInput.value = reply;
+                    sendMessage();
+                }
+            });
+            
+            // Test Gemini connection on startup
+            setTimeout(testGeminiConnection, 500);
+        }
+        
+        // Updated test function
+        async function testGeminiConnection() {
+            statusMessage.innerHTML = '<i class="fas fa-sync fa-spin"></i> Testing connection...';
+            
+            try {
+                // Test with the working model
+                const response = await callGeminiAPI("Hello, please respond with 'Connected'.");
+                if (response && response.includes('Connected')) {
+                    isGeminiConnected = true;
+                    connectionStatus.className = 'connection-status status-connected';
+                    statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Gemini AI is connected!';
+                    console.log("Gemini API connected successfully");
+                } else {
+                    throw new Error('Unexpected response');
+                }
+            } catch (error) {
+                // If direct API fails, use fallback responses
+                isGeminiConnected = false;
+                connectionStatus.className = 'connection-status status-error';
+                statusMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Using fallback responses (browser restrictions)';
+                console.log('Using fallback AI responses due to browser restrictions:', error.message);
+            }
+        }
+        
+        // Updated Gemini API call function
+        async function callGeminiAPI(prompt, context = null) {
+            if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_API_KEY_HERE') {
+                throw new Error('Gemini API key not configured');
+            }
+
+            try {
+                const requestBody = {
+                    contents: [{
+                        parts: [{
+                            text: context ? `${context}\n\n${prompt}` : prompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1024,
+                    }
+                };
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || `API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                    throw new Error('Invalid response format from Gemini API');
+                }
+
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error('Gemini API error:', error);
+                throw error;
+            }
+        }
+        
+        // Handle user login
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                alert('Please enter both username and password');
+                return;
+            }
+            
+            // In a real app, this would be a server call
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => 
+                (u.username === username || u.email === username) && u.password === password
+            );
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                showMainApp();
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+        
+        // Handle user registration
+        function handleRegister() {
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            
+            if (!fullname || !email || !username || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // In a real app, this would be a server call
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Check if username or email already exists
+            if (users.some(u => u.username === username)) {
+                alert('Username already exists');
+                return;
+            }
+            
+            if (users.some(u => u.email === email)) {
+                alert('Email already exists');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                fullname,
+                email,
+                username,
+                password, // In a real app, this would be hashed
+                joinedDate: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            showMainApp();
+        }
+        
+        // Handle user logout
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            showLoginScreen();
+        }
+        
+        // Show main app after login
+        function showMainApp() {
+            loginScreen.style.display = 'none';
+            mainApp.style.display = 'block';
+            
+            // Load user data
+            loadUserData();
+            
+            // Update UI with user info
+            greetingName.textContent = currentUser.fullname.split(' ')[0];
+            userName.textContent = currentUser.fullname;
+            userEmail.textContent = currentUser.email;
+            userAvatar.textContent = currentUser.fullname.charAt(0).toUpperCase();
+            
+            // Load journal entries and update dashboard
+            displayHistory();
+            updateDashboard();
+        }
+        
+        // Show login screen
+        function showLoginScreen() {
+            mainApp.style.display = 'none';
+            loginScreen.style.display = 'block';
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            
+            // Clear form fields
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('fullname').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('new-username').value = '';
+            document.getElementById('new-password').value = '';
+        }
+        
+        // Load user-specific data
+        function loadUserData() {
+            if (!currentUser) return;
+            
+            const userData = JSON.parse(localStorage.getItem(`userData_${currentUser.id}`) || '{}');
+            journalEntries = userData.journalEntries || [];
+            chatHistory = userData.chatHistory || [];
+        }
+        
+        // Save user-specific data
+        function saveUserData() {
+            if (!currentUser) return;
+            
+            const userData = {
+                journalEntries,
+                chatHistory
+            };
+            
+            localStorage.setItem(`userData_${currentUser.id}`, JSON.stringify(userData));
+        }
+        
+        // Analyze journal entry in real-time
+        function analyzeJournalEntry() {
+            const text = journalEntry.value.trim();
+            
+            if (text.length === 0) {
+                journalAnalysis.innerHTML = '<h3>Quick Analysis</h3><p>Write something to see your emotion analysis.</p>';
+                document.getElementById('sentiment-fill').style.width = '0%';
+                crisisAlert.style.display = 'none';
+                geminiInsights.style.display = 'none';
+                return;
+            }
+            
+            const analysis = performSentimentAnalysis(text);
+            const emotionBreakdown = analyzeEmotions(text);
+            
+            // Update analysis display
+            journalAnalysis.innerHTML = `
+                <h3>Quick Analysis</h3>
+                <p><strong>Overall Sentiment:</strong> ${analysis.sentiment}</p>
+                <p><strong>Detected Emotions:</strong> ${emotionBreakdown.join(', ')}</p>
+                <div class="sentiment-bar">
+                    <div class="sentiment-fill" id="sentiment-fill" style="width: ${analysis.score}%; background-color: ${analysis.color};"></div>
+                </div>
+            `;
+            
+            // Get AI insights if connected and text is long enough
+            if (isGeminiConnected && text.length > 30) {
+                getAIJournalInsights(text, analysis, emotionBreakdown);
+            } else if (text.length > 30) {
+                // Use fallback insights
+                getFallbackAIInsights(text, analysis, emotionBreakdown);
+            } else {
+                geminiInsights.style.display = 'none';
+            }
+            
+            // Check for crisis keywords
+            if (detectCrisis(text)) {
+                crisisAlert.style.display = 'block';
+            } else {
+                crisisAlert.style.display = 'none';
+            }
+        }
+        
+        // Get AI insights for journal entry
+        async function getAIJournalInsights(text, analysis, emotions) {
+            aiInsightsContent.innerHTML = '<p><i class="fas fa-sync fa-spin"></i> AI is analyzing your entry...</p>';
+            geminiInsights.style.display = 'block';
+            
+            try {
+                const prompt = `Please provide psychological insights about this journal entry. Be empathetic and supportive. Focus on:
+                1. Key emotional themes
+                2. Potential underlying concerns
+                3. Supportive suggestions for emotional well-being
+                
+                Journal Entry: "${text}"
+                Detected Emotions: ${emotions.join(', ')}
+                Overall Sentiment: ${analysis.sentiment}
+                
+                Please respond in a warm, conversational tone.`;
+                
+                const response = await callGeminiAPI(prompt);
+                aiInsightsContent.innerHTML = `<p>${response}</p>`;
+            } catch (error) {
+                // Fallback to predefined responses
+                getFallbackAIInsights(text, analysis, emotions);
+            }
+        }
+        
+        // Fallback AI insights when API is not available
+        function getFallbackAIInsights(text, analysis, emotions) {
+            aiInsightsContent.innerHTML = '<p><i class="fas fa-sync fa-spin"></i> AI is analyzing your entry...</p>';
+            geminiInsights.style.display = 'block';
+            
+            setTimeout(() => {
+                const insights = generateFallbackInsight(text, analysis, emotions);
+                aiInsightsContent.innerHTML = `<p>${insights}</p>`;
+            }, 1500);
+        }
+        
+        // Generate fallback insight based on content
+        function generateFallbackInsight(text, analysis, emotions) {
+            const positiveResponses = [
+                "It's wonderful to see such positive energy in your writing. Remember to cherish these moments of happiness and reflect on what brings you joy. Consider writing about specific things that made you feel this way to create a gratitude practice.",
+                "Your positive outlook is truly inspiring. When we experience moments like these, it can be helpful to acknowledge and savor them. Perhaps you could explore ways to incorporate more of these positive elements into your daily routine.",
+                "This entry radiates such warmth and positivity. It's important to recognize and celebrate these good moments. You might find it valuable to create a 'happy moments' collection in your journal to revisit when you need a boost."
+            ];
+            
+            const neutralResponses = [
+                "Thank you for sharing your thoughts. It seems you're in a reflective space today. Sometimes taking time to simply observe our thoughts without judgment can be a powerful practice in itself.",
+                "I notice a thoughtful, contemplative tone in your writing. This kind of self-reflection is an important part of emotional awareness. You might consider exploring what's beneath the surface of these thoughts.",
+                "Your entry shows a balanced perspective. Maintaining this equilibrium can be challenging, so it's commendable. Perhaps you could explore what helps you maintain this sense of balance in your life."
+            ];
+            
+            const negativeResponses = [
+                "I hear the challenges you're expressing, and I want you to know that your feelings are valid. It takes courage to sit with difficult emotions. Remember that these feelings, while uncomfortable, are temporary visitors.",
+                "Thank you for trusting me with these difficult emotions. It's completely normal to experience ups and downs in our emotional landscape. Would practicing some gentle self-compassion or mindfulness help right now?",
+                "I can sense the weight in your words, and I want you to know you're not alone in feeling this way. Sometimes simply naming our emotions can help reduce their intensity. Would you like to explore some coping strategies together?"
+            ];
+            
+            let responsePool;
+            if (analysis.sentiment === 'Positive') {
+                responsePool = positiveResponses;
+            } else if (analysis.sentiment === 'Negative') {
+                responsePool = negativeResponses;
+            } else {
+                responsePool = neutralResponses;
+            }
+            
+            return responsePool[Math.floor(Math.random() * responsePool.length)];
+        }
+        
+        // Save journal entry
+        async function saveJournalEntry() {
+            const text = journalEntry.value.trim();
+            const mood = selectedMood;
+            
+            if (text.length === 0) {
+                alert('Please write something in your journal entry.');
+                return;
+            }
+            
+            if (!mood) {
+                alert('Please select a mood.');
+                return;
+            }
+            
+            const entry = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString(),
+                text: text,
+                mood: mood,
+                analysis: performSentimentAnalysis(text),
+                emotions: analyzeEmotions(text)
+            };
+            
+            journalEntries.unshift(entry);
+            saveUserData();
+            
+            // Reset form
+            journalEntry.value = '';
+            moodOptions.forEach(opt => opt.classList.remove('selected'));
+            selectedMood = '';
+            journalAnalysis.innerHTML = '<h3>Quick Analysis</h3><p>Write something to see your emotion analysis.</p>';
+            document.getElementById('sentiment-fill').style.width = '0%';
+            crisisAlert.style.display = 'none';
+            geminiInsights.style.display = 'none';
+            
+            alert('Journal entry saved successfully!');
+            
+            // Refresh history and dashboard
+            displayHistory();
+            updateDashboard();
+        }
+        
+        // Display history entries
+        function displayHistory() {
+            if (journalEntries.length === 0) {
+                noEntries.style.display = 'block';
+                historyList.style.display = 'none';
+                recentEntries.innerHTML = '<p>No recent entries. Start by writing your first journal entry!</p>';
+                return;
+            }
+            
+            noEntries.style.display = 'none';
+            historyList.style.display = 'block';
+            
+            // Update history list
+            historyList.innerHTML = '';
+            
+            journalEntries.forEach(entry => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                li.setAttribute('data-id', entry.id);
+                
+                const moodColors = {
+                    happy: '#4caf50',
+                    sad: '#2196f3',
+                    angry: '#f44336',
+                    anxious: '#ff9800',
+                    calm: '#9c27b0',
+                    tired: '#607d8b'
+                };
+                
+                li.innerHTML = `
+                    <div class="history-date">
+                        <strong>${entry.date}</strong><br>
+                        ${entry.time}
+                    </div>
+                    <div class="history-text">${entry.text.substring(0, 100)}${entry.text.length > 100 ? '...' : ''}</div>
+                    <div class="history-mood" style="background-color: ${moodColors[entry.mood] || '#ddd'}; color: white;">
+                        ${entry.mood}
+                    </div>
+                `;
+                
+                // Add click event to discuss with AI
+                li.addEventListener('click', () => {
+                    discussEntryWithAI(entry);
+                });
+                
+                historyList.appendChild(li);
+            });
+            
+            // Update recent entries in dashboard
+            updateRecentEntries();
+        }
+        
+        // Update dashboard with user stats
+        function updateDashboard() {
+            if (!currentUser) return;
+            
+            // Update basic stats
+            entriesCount.textContent = journalEntries.length;
+            aiChats.textContent = chatHistory.length;
+            
+            // Calculate average mood
+            if (journalEntries.length > 0) {
+                const moodValues = {
+                    happy: 5,
+                    calm: 4,
+                    tired: 3,
+                    anxious: 2,
+                    sad: 1,
+                    angry: 1
+                };
+                
+                const total = journalEntries.reduce((sum, entry) => {
+                    return sum + (moodValues[entry.mood] || 3);
+                }, 0);
+                
+                const average = total / journalEntries.length;
+                avgMood.textContent = average.toFixed(1);
+            } else {
+                avgMood.textContent = '-';
+            }
+            
+            // Calculate streak (simplified)
+            if (journalEntries.length > 0) {
+                currentStreak.textContent = '1'; // Simplified for demo
+            } else {
+                currentStreak.textContent = '0';
+            }
+            
+            // Update recent entries
+            updateRecentEntries();
+        }
+        
+        // Update recent entries in dashboard
+        function updateRecentEntries() {
+            if (journalEntries.length === 0) {
+                recentEntries.innerHTML = '<p>No recent entries. Start by writing your first journal entry!</p>';
+                return;
+            }
+            
+            const recent = journalEntries.slice(0, 3);
+            let html = '';
+            
+            recent.forEach(entry => {
+                html += `
+                    <div class="history-item">
+                        <div class="history-date">
+                            <strong>${entry.date}</strong>
+                        </div>
+                        <div class="history-text">${entry.text.substring(0, 80)}${entry.text.length > 80 ? '...' : ''}</div>
+                        <div class="history-mood" style="background-color: ${getMoodColor(entry.mood)}; color: white;">
+                            ${entry.mood}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            recentEntries.innerHTML = html;
+        }
+        
+        // Get mood color
+        function getMoodColor(mood) {
+            const moodColors = {
+                happy: '#4caf50',
+                sad: '#2196f3',
+                angry: '#f44336',
+                anxious: '#ff9800',
+                calm: '#9c27b0',
+                tired: '#607d8b'
+            };
+            
+            return moodColors[mood] || '#ddd';
+        }
+        
+        // Discuss journal entry with AI
+        function discussEntryWithAI(entry) {
+            // Switch to chatbot section
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-section="chatbot"]').classList.add('active');
+            
+            sections.forEach(section => {
+                section.classList.remove('active-section');
+                if (section.id === 'chatbot') {
+                    section.classList.add('active-section');
+                }
+            });
+            
+            // Auto-populate chat with journal entry context
+            const contextMessage = `I'd like to discuss my journal entry from ${entry.date} where I was feeling ${entry.mood}. Here's what I wrote: "${entry.text}"`;
+            chatInput.value = contextMessage;
+            sendMessage();
+        }
+        
+        // Chatbot functions
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message to chat
+            addMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Show typing indicator
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            try {
+                let botResponse;
+                
+                if (isGeminiConnected) {
+                    // Generate AI response using Gemini
+                    let prompt = message;
+                    let context = null;
+                    
+                    // Add journal context if available
+                    if (journalEntries.length > 0) {
+                        const recentEntries = journalEntries.slice(0, 3).map(entry => 
+                            `${entry.date} (${entry.mood}): ${entry.text}`
+                        ).join('\n');
+                        
+                        context = `You are an empathetic emotional support assistant. The user has been journaling their feelings. Here are their recent journal entries for context:\n\n${recentEntries}\n\n`;
+                    }
+                    
+                    botResponse = await callGeminiAPI(prompt, context);
+                } else {
+                    // Use fallback responses
+                    botResponse = generateFallbackResponse(message);
+                }
+                
+                typingIndicator.style.display = 'none';
+                addMessage(botResponse, 'bot');
+                
+                // Save to chat history
+                chatHistory.push({ user: message, bot: botResponse, timestamp: new Date().toISOString() });
+                saveUserData();
+                
+            } catch (error) {
+                typingIndicator.style.display = 'none';
+                // Use fallback response in case of error
+                const fallbackResponse = generateFallbackResponse(message);
+                addMessage(fallbackResponse, 'bot');
+                
+                // Still save to chat history
+                chatHistory.push({ user: message, bot: fallbackResponse, timestamp: new Date().toISOString() });
+                saveUserData();
+            }
+            
+            // Scroll to bottom and update dashboard
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            updateDashboard();
+        }
+        
+        // Generate fallback response when API is not available
+        function generateFallbackResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Greetings
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return "Hello there! I'm glad you're here. How are you feeling today?";
+            }
+            
+            // Positive feelings
+            if (lowerMessage.includes('good') || lowerMessage.includes('great') || lowerMessage.includes('happy') || 
+                lowerMessage.includes('excited') || lowerMessage.includes('amazing') || lowerMessage.includes('well')) {
+                return "That's wonderful to hear! It's great that you're feeling positive. Would you like to share what's making you feel this way?";
+            }
+            
+            // Negative feelings
+            if (lowerMessage.includes('sad') || lowerMessage.includes('depressed') || lowerMessage.includes('unhappy') || 
+                lowerMessage.includes('down') || lowerMessage.includes('miserable')) {
+                return "I'm sorry you're feeling this way. It's okay to feel sad sometimes. Would you like to talk about what's bothering you?";
+            }
+            
+            // Anxiety and stress
+            if (lowerMessage.includes('anxious') || lowerMessage.includes('stress') || lowerMessage.includes('worried') || 
+                lowerMessage.includes('nervous') || lowerMessage.includes('overwhelmed')) {
+                return "I understand that anxiety and stress can be really challenging. Remember to take deep breaths. Would practicing a quick mindfulness exercise help right now?";
+            }
+            
+            // Anger
+            if (lowerMessage.includes('angry') || lowerMessage.includes('mad') || lowerMessage.includes('frustrated') || 
+                lowerMessage.includes('annoyed') || lowerMessage.includes('irritated')) {
+                return "It sounds like you're dealing with some strong emotions right now. Anger is a natural emotion. Would it help to talk through what's causing these feelings?";
+            }
+            
+            // Journal-related
+            if (lowerMessage.includes('journal') || lowerMessage.includes('entry') || lowerMessage.includes('write')) {
+                return "Keeping a journal is a great way to process your emotions. You can use the Journal section to record your thoughts and feelings. Would you like me to remind you how it works?";
+            }
+            
+            // Default empathetic responses
+            const defaultResponses = [
+                "Thank you for sharing that with me. How has that been affecting you?",
+                "I appreciate you opening up about this. Would you like to explore this feeling further?",
+                "That sounds challenging. Remember that it's okay to feel whatever you're feeling right now.",
+                "I'm listening. Tell me more about what's on your mind.",
+                "Your feelings are valid. Would it help to talk through some coping strategies?",
+                "I understand this might be difficult to talk about. Take your time.",
+                "It takes courage to share these feelings. Thank you for trusting me.",
+                "Let's work through this together. What's one small thing that might help right now?"
+            ];
+            
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            
+            // Add quick replies for bot messages
+            if (sender === 'bot') {
+                const quickReplies = generateQuickReplies(text);
+                if (quickReplies) {
+                    const repliesDiv = document.createElement('div');
+                    repliesDiv.className = 'quick-replies';
+                    quickReplies.forEach(reply => {
+                        const replyBtn = document.createElement('div');
+                        replyBtn.className = 'quick-reply';
+                        replyBtn.setAttribute('data-reply', reply);
+                        replyBtn.textContent = reply;
+                        repliesDiv.appendChild(replyBtn);
+                    });
+                    messageDiv.appendChild(repliesDiv);
+                }
+            }
+            
+            chatMessages.appendChild(messageDiv);
+        }
+        
+        function loadChatHistory() {
+            // Clear current messages except the first bot message
+            while (chatMessages.children.length > 1) {
+                chatMessages.removeChild(chatMessages.lastChild);
+            }
+            
+            // Load previous chat history
+            chatHistory.forEach(chat => {
+                addMessage(chat.user, 'user');
+                addMessage(chat.bot, 'bot');
+            });
+        }
+        
+        function generateQuickReplies(botMessage) {
+            if (botMessage.includes('feeling')) {
+                return ["I'm feeling okay", "I'm a bit stressed", "I'm not doing great", "I'm feeling good today"];
+            }
+            
+            if (botMessage.includes('journal') || botMessage.includes('entry')) {
+                return ["Discuss my latest entry", "Analyze my mood patterns", "Suggest journal prompts"];
+            }
+            
+            if (botMessage.includes('coping') || botMessage.includes('strategies')) {
+                return ["Yes, please", "What do you suggest?", "Mindfulness techniques"];
+            }
+            
+            return null;
+        }
+        
+        // Basic sentiment analysis
+        function performSentimentAnalysis(text) {
+            const positiveWords = ['happy', 'good', 'great', 'excellent', 'joy', 'love', 'amazing', 'wonderful', 'fantastic', 'positive'];
+            const negativeWords = ['sad', 'bad', 'terrible', 'awful', 'hate', 'angry', 'anxious', 'worried', 'depressed', 'negative'];
+            
+            const words = text.toLowerCase().split(/\s+/);
+            let positiveCount = 0;
+            let negativeCount = 0;
+            
+            words.forEach(word => {
+                if (positiveWords.includes(word)) positiveCount++;
+                if (negativeWords.includes(word)) negativeCount++;
+            });
+            
+            const total = positiveCount + negativeCount;
+            let score = 50; // neutral
+            
+            if (total > 0) {
+                score = Math.round((positiveCount / total) * 100);
+            }
+            
+            let sentiment = 'Neutral';
+            let color = '#ffc107';
+            
+            if (score >= 70) {
+                sentiment = 'Positive';
+                color = '#4caf50';
+            } else if (score <= 30) {
+                sentiment = 'Negative';
+                color = '#f44336';
+            }
+            
+            return { sentiment, score, color };
+        }
+        
+        // Emotion detection based on keywords
+        function analyzeEmotions(text) {
+            const emotions = {
+                joy: ['happy', 'joy', 'excited', 'delighted', 'pleased', 'content'],
+                sadness: ['sad', 'unhappy', 'grief', 'sorrow', 'melancholy', 'down'],
+                anger: ['angry', 'furious', 'irritated', 'annoyed', 'frustrated', 'mad'],
+                fear: ['afraid', 'scared', 'fearful', 'terrified', 'anxious', 'worried'],
+                surprise: ['surprised', 'amazed', 'astonished', 'shocked'],
+                love: ['love', 'adore', 'cherish', 'affection', 'caring'],
+                disgust: ['disgust', 'revulsion', 'repulsed', 'sickened']
+            };
+            
+            const detected = [];
+            const textLower = text.toLowerCase();
+            
+            for (const [emotion, keywords] of Object.entries(emotions)) {
+                if (keywords.some(keyword => textLower.includes(keyword))) {
+                    detected.push(emotion);
+                }
+            }
+            
+            return detected.length > 0 ? detected : ['Neutral'];
+        }
+        
+        // Crisis detection based on keywords
+        function detectCrisis(text) {
+            const crisisKeywords = [
+                'suicide', 'kill myself', 'end it all', 'want to die', 
+                'harm myself', 'self harm', 'no way out', 'hopeless'
+            ];
+            
+            const textLower = text.toLowerCase();
+            return crisisKeywords.some(keyword => textLower.includes(keyword));
+        }
+        
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
